@@ -1,25 +1,29 @@
-// Variables
-$primary-color: #00bc77;
-$dark-bg: #12002b;
-$text-color: #fff;
-$input-bg: #fff;
-$input-border: #ccc;
+@import "../../designs/css/main.scss";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
 .sign-in-content {
-  background: #fff;
+  // background: #fff;
+  // padding: 2rem;
+  // border-radius: 8px;
+  // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  // text-align: center;
+  // max-width: 400px;
+  // width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 3rem;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-
   .sign-in-icon {
     font-size: 3rem;
     color: $dark-bg;
