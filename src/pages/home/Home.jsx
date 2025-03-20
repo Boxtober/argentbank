@@ -43,4 +43,3 @@ export default function Home() {
     </div>
   );
 }
-//faire une validation sur le champ nom à ne pas valider si vide

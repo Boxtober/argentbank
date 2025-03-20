@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../designs/img/argentBankLogo.png";
 import "./navbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (
@@ -17,29 +17,20 @@ const Navbar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {/* <NavLink
-          to="/user"
-          className={(nav) =>
-            nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
-          }>
-          <FontAwesomeIcon icon={faUser} />
-          Tony
-        </NavLink> */}
         <NavLink
           to="/user"
           className={(nav) =>
             nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
           }>
-          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={faUserCircle} />
           Tony
         </NavLink>
-
         <NavLink
           to="/sign-in"
           className={(nav) =>
             nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
           }>
-          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={faSignOut} />
           Sign In
         </NavLink>
       </div>
