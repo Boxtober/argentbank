@@ -9,14 +9,16 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action) => {
-      state.token = action.payload; // Maj du token dans le state
-      console.log("set token ici : ", action.payload);
+      state.token = action.payload;
     },
     clearToken: (state) => {
-      state.token = null; // efface le token à la déconnexion
+      state.token = null;
+    },
+    logout: (state) => {
+      state.token = null;
     },
   },
 });
 
-export const { setToken, clearToken } = authSlice.actions;
+export const { setToken, clearToken, logout } = authSlice.actions;
 export default authSlice.reducer;

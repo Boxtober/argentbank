@@ -1,59 +1,91 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getProfile, updateProfile, logout } from "../../services/apiService";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile, updateProfile } from "../../services/apiService"; // Assurez-vous que `updateProfile` existe
+import { logout } from "../../services/apiService";
 
 const Profil = () => {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const [profile, setProfile] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const navigate = useNavigate();
-  const token = useSelector((state) => state.token);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Composant profile monté");
-
-    const fetchProfile = async () => {
-      if (token) {
-        try {
-          const response = await getProfile(token);
-          console.log("Réponse du profil :", response);
-          setUser(response.data.body);
+    if (token) {
+      getProfile(token)
+        .then((response) => {
+          console.log("Profil récupéré :", response.data);
+          setProfile(response.data.body);
           setFirstName(response.data.body.firstName);
           setLastName(response.data.body.lastName);
-        } catch (error) {
-          console.error("Erreur :", error);
-          navigate("/sign-in");
-        }
-      } else {
-        console.log("Aucun token trouvé");
-      }
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération du profil", error);
+          setError(
+            "Une erreur est survenue lors de la récupération du profil."
+          );
+          setLoading(false);
+        });
+    }
+  }, [token]);
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    if (!firstName || !lastName) {
+      setError("Les champs sont obligatoires");
+      return;
+    }
+
+    const updatedData = {
+      firstName,
+      lastName,
     };
 
-    fetchProfile();
-  }, [token, navigate]);
+    updateProfile(updatedData, token)
+      .then((response) => {
+        console.log("Profil mis à jour :", response.data);
+        setProfile(response.data.body); // Mettre à jour les données dans le state
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la mise à jour du profil", error);
+        setError("Une erreur est survenue lors de la mise à jour du profil.");
+      });
+  };
 
-  if (!user) return <p>Chargement...</p>;
+  const handleLogout = () => {
+    dispatch(logout()); // Supprimer le token et rediriger l'utilisateur
+    window.location.href = "/login"; // Rediriger vers la page de connexion
+  };
+
+  if (loading) {
+    return <p>Chargement du profil...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div>
       <h2>Profil</h2>
-      <form>
-        onSubmit={handleUpdate}
+      <form onSubmit={handleUpdate}>
         <input
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
-        <h1>{{ firstName }}</h1>
         <input
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <button type="submit">Maj</button>
+        <button type="submit">Mettre à jour</button>
       </form>
-      <button onClick={handleLogout}>déconnecter</button>
+      <button onClick={handleLogout}>Déconnecter</button>
     </div>
   );
 };
