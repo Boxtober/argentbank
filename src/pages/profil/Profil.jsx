@@ -61,7 +61,7 @@ const Profil = () => {
         console.log("Profil mis à jour :", response.data);
         setProfile(response.data.body);
         dispatch(setFirstName(response.data.body.firstName)); // maj du store avec la valeur modifiée
-        setIsEditing(false); // Masquer le formulaire et réafficher la section header
+        setIsEditing(false); // masquer formulaire et réafficher le header
       })
       .catch((error) => {
         console.error("Erreur lors de la mise à jour du profil", error);
@@ -74,7 +74,7 @@ const Profil = () => {
       setFirstNameLocal(profile.firstName); // réinit état local
       setLastName(profile.lastName);
     }
-    setIsEditing(false); // Réinitialiser l'édition
+    setIsEditing(false);
   };
 
   // if (loading) {
