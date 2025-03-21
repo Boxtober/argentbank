@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile, updateProfile } from "../../services/apiService"; // Assurez-vous que `updateProfile` existe
-import { logout } from "../../services/apiService";
+import { getProfile, updateProfile } from "../../services/apiService";
+import { setFirstName } from "../../redux/authSlice";
+import "./profil.scss";
 
 const Profil = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
+  const firstNameFromStore = useSelector((state) => state.auth.firstName);
   const [profile, setProfile] = useState(null);
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstNameLocal] = useState(firstNameFromStore); // utilisation d'un état local
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +20,7 @@ const Profil = () => {
         .then((response) => {
           console.log("Profil récupéré :", response.data);
           setProfile(response.data.body);
-          setFirstName(response.data.body.firstName);
+          setFirstNameLocal(response.data.body.firstName); // maj état local
           setLastName(response.data.body.lastName);
           setLoading(false);
         })
@@ -48,7 +50,8 @@ const Profil = () => {
     updateProfile(updatedData, token)
       .then((response) => {
         console.log("Profil mis à jour :", response.data);
-        setProfile(response.data.body); // Mettre à jour les données dans le state
+        setProfile(response.data.body);
+        dispatch(setFirstName(response.data.body.firstName)); // maj du store avec la valeur modifié
       })
       .catch((error) => {
         console.error("Erreur lors de la mise à jour du profil", error);
@@ -56,9 +59,11 @@ const Profil = () => {
       });
   };
 
-  const handleLogout = () => {
-    dispatch(logout()); // Supprimer le token et rediriger l'utilisateur
-    window.location.href = "/login"; // Rediriger vers la page de connexion
+  const handleCancel = () => {
+    if (profile) {
+      setFirstNameLocal(profile.firstName); // réinit état local
+      setLastName(profile.lastName);
+    }
   };
 
   if (loading) {
@@ -70,22 +75,24 @@ const Profil = () => {
   }
 
   return (
-    <div>
+    <div className="main">
       <h2>Profil</h2>
       <form onSubmit={handleUpdate}>
         <input
           type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          value={firstName} // état local
+          onChange={(e) => setFirstNameLocal(e.target.value)} // maj état local
         />
         <input
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <button type="submit">Mettre à jour</button>
+        <button type="submit">Save</button>
+        <button type="button" onClick={handleCancel}>
+          Cancel
+        </button>
       </form>
-      <button onClick={handleLogout}>Déconnecter</button>
     </div>
   );
 };

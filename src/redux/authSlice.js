@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  token: null, // initialisé à null
+  token: null,
+  firstName: "",
+  // initialisé à null
 };
 
 const authSlice = createSlice({
@@ -17,8 +19,17 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
     },
+    setFirstName: (state, action) => {
+      state.firstName = action.payload;
+    },
   },
 });
 
-export const { setToken, clearToken, logout } = authSlice.actions;
+export const { setToken, clearToken, logout, setFirstName } = authSlice.actions;
 export default authSlice.reducer;
+
+//utiliser pour nom et prenom
+//stock token dans localstorage
+//le fichier qui appel le service enregistre le token en localstorage
+// verfier presence du token sur chaque page avec besoin d'etre connecter
+//

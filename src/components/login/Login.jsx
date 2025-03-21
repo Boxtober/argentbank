@@ -17,7 +17,7 @@ const Login = () => {
       console.log("Réponse du serveur :", response);
       if (response.body && response.body.token) {
         console.log("Connexion réussie, redirection vers profil...");
-        dispatch(setToken(response.body.token));
+        //dispatch(setToken(response.body.token));
         setTimeout(() => {
           navigate("/profile");
         }, 500);

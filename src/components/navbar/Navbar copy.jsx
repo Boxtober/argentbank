@@ -4,35 +4,15 @@ import logo from "../../designs/img/argentBankLogo.png";
 import "./navbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { logout, getProfile, updateProfile } from "../../services/apiService";
+import { logout } from "../../services/apiService";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setFirstName } from "../../redux/authSlice";
+
 const Navbar = () => {
   const token = useSelector((state) => state.auth.token);
   const firstName = useSelector((state) => state.auth.firstName);
   console.log("token de navbar", token);
   console.log("firstName de navbar", firstName);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (token) {
-      getProfile(token)
-        .then((response) => {
-          console.log("Profil récupéré :", response.data);
-          dispatch(setFirstName(response.data.body.firstName));
-          // setFirstName(response.data.body.firstName);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la récupération du profil", error);
-          setError(
-            "Une erreur est survenue lors de la récupération du profil."
-          );
-          setLoading(false);
-        });
-    }
-  }, [token]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -53,7 +33,7 @@ const Navbar = () => {
         {token ? (
           <>
             <NavLink
-              to="/profile"
+              to="/user"
               className={(nav) =>
                 nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
               }>
