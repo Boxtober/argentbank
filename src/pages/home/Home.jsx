@@ -30,7 +30,7 @@ const featuresData = [
 
 export default function Home() {
   return (
-    <div className="body">
+    <div className="body main">
       <main className="bg-white">
         <Banner />
         <section className="features">

@@ -1,7 +1,7 @@
 import React from "react";
 import "./login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Login = ({
   email,
@@ -13,37 +13,39 @@ const Login = ({
   handleSubmit,
 }) => {
   return (
-    <div className="sign-in-content">
-      <FontAwesomeIcon icon={faStar} />
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="input-wrapper">
-          <label htmlFor="email">Username / Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} // Gestion de l'email
-          />
-        </div>
-        <div className="input-wrapper">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} // Gestion du mot de passe
-          />
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">Remember me</label>
-        </div>
-        <button type="submit" className="sign-in-button">
-          Sign In
-        </button>
-      </form>
+    <div className="main signInMain">
+      <section className="sign-in-content">
+        <FontAwesomeIcon icon={faUserCircle} />
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <label htmlFor="email">Username / Email ???</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} // Gestion de l'email
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} // Gestion du mot de passe
+            />
+          </div>
+          {error && <p className="error-message">{error}</p>}
+          <div className="input-remember">
+            <input type="checkbox" id="remember-me" />
+            <label htmlFor="remember-me">Remember me</label>
+          </div>
+          <button type="submit" className="sign-in-button">
+            Sign In
+          </button>
+        </form>
+      </section>{" "}
     </div>
   );
 };

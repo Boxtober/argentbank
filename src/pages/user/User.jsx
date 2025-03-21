@@ -22,7 +22,7 @@ const accountData = [
 
 export default function User() {
   return (
-    <div className="main bg-dark">
+    <div className="main userMain bg-dark">
       <div class="header">
         <h1>
           Welcome back

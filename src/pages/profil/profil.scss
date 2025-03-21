@@ -1,21 +1,41 @@
-.main {
+@import "../../designs/css/main.scss";
+
+.profilMain {
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 2rem;
   gap: 1rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h1,
+  h2 {
+    font-size: 2em;
+    color: $text-color;
+  }
 }
 
 input {
-  padding: 1rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
   font-size: 14px;
+  border-radius: 0.3rem;
 }
 
-button {
-  padding: 1rem;
+.formBtn {
+  padding: 0.5rem;
   font-size: 14px;
-  border: none;
+  border-radius: 0.3rem;
+  width: 120px;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+  background-color: $dark-bg;
+  font-weight: bold;
   cursor: pointer;
 }

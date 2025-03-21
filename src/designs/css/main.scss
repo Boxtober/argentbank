@@ -1,6 +1,7 @@
 $primary-color: #00bc77;
 $dark-bg: #12002b;
 $text-color: #fff;
+$text-black: #2c3e50;
 $input-bg: #fff;
 $input-border: #ccc;
 
@@ -15,7 +16,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $text-black;
 }
 
 body {
@@ -26,6 +27,7 @@ body {
 }
 .main {
   flex: 1;
+  height: calc(100vh - 140.38px);
 }
 
 .sr-only {
@@ -45,4 +47,11 @@ body {
 .bg-dark {
   background-color: #12002b;
   flex: 1;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
 }

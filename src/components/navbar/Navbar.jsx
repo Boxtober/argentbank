@@ -8,6 +8,7 @@ import { logout, getProfile, updateProfile } from "../../services/apiService";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setFirstName } from "../../redux/authSlice";
+
 const Navbar = () => {
   const token = useSelector((state) => state.auth.token);
   const firstName = useSelector((state) => state.auth.firstName);
@@ -22,14 +23,14 @@ const Navbar = () => {
           console.log("Profil récupéré :", response.data);
           dispatch(setFirstName(response.data.body.firstName));
           // setFirstName(response.data.body.firstName);
-          setLoading(false);
+          // setLoading(false);
         })
         .catch((error) => {
           console.error("Erreur lors de la récupération du profil", error);
           setError(
             "Une erreur est survenue lors de la récupération du profil."
           );
-          setLoading(false);
+          // setLoading(false);
         });
     }
   }, [token]);
@@ -49,7 +50,7 @@ const Navbar = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
-      <div>
+      <div className="row">
         {token ? (
           <>
             <NavLink
@@ -60,20 +61,22 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faUserCircle} />
               {firstName}
             </NavLink>
-            <button className="main-nav-item" onClick={handleLogout}>
+            <button className="toto" onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOut} />
               Sign out
             </button>
           </>
         ) : (
-          <NavLink
-            to="/sign-in"
-            className={(nav) =>
-              nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
-            }>
-            <FontAwesomeIcon icon={faUserCircle} />
-            Sign In
-          </NavLink>
+          <>
+            <NavLink
+              to="/sign-in"
+              className={(nav) =>
+                nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
+              }>
+              <FontAwesomeIcon icon={faUserCircle} />
+              Sign In
+            </NavLink>
+          </>
         )}
       </div>
     </nav>
@@ -81,45 +84,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// import React from "react";
-// import { NavLink } from "react-router-dom";
-// import logo from "../../designs/img/argentBankLogo.png";
-// import "./navbar.scss";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faUserCircle, faSignOut } from "@fortawesome/free-solid-svg-icons";
-
-// const Navbar = () => {
-//   return (
-//     <nav className="main-nav">
-//       <NavLink to="/" className="main-nav-logo">
-//         <img
-//           className="main-nav-logo-image"
-//           src={logo}
-//           alt="Argent Bank Logo"
-//         />
-//         <h1 className="sr-only">Argent Bank</h1>
-//       </NavLink>
-//       <div>
-//         <NavLink
-//           to="/user"
-//           className={(nav) =>
-//             nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
-//           }>
-//           <FontAwesomeIcon icon={faUserCircle} />
-//           {firstName}
-//         </NavLink>
-//         <NavLink
-//           to="/sign-in"
-//           className={(nav) =>
-//             nav.isActive ? "nav-active main-nav-item" : "main-nav-item"
-//           }>
-//           <FontAwesomeIcon icon={faSignOut} />
-//           Sign In
-//         </NavLink>
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;

@@ -1,3 +1,4 @@
+@import "../../designs/css/main.scss";
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -8,7 +9,10 @@
 .main-nav a {
   margin-right: 0.5rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: $text-black;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .main-nav a.router-link-exact-active {
@@ -20,7 +24,8 @@
   margin-right: 0.5rem;
 }
 
-.main-nav-item:hover {
+.main-nav-item:hover,
+.toto:hover {
   text-decoration: underline;
 }
 
@@ -32,4 +37,16 @@
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+.toto {
+  margin-right: 0.5rem;
+  font-weight: bold;
+  color: $text-black;
+  border: none;
+  background: none;
+  font-size: 16px;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
 }
