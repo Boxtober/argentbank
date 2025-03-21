@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile, updateProfile } from "../../services/apiService";
 import { setFirstName } from "../../redux/authSlice";
 import "./profil.scss";
+import AccountCard from "../../components/accountCard/AccountCard";
 
 const Profil = () => {
   const dispatch = useDispatch();
@@ -73,15 +74,39 @@ const Profil = () => {
   if (error) {
     return <p>{error}</p>;
   }
+  const accountData = [
+    {
+      title: "Argent Bank Checking (x8349)",
+      price: "2,082.79",
+      state: "Available Balance",
+    },
+    {
+      title: "Argent Bank Checking (x8349)",
+      price: "2,082.79",
+      state: "Available Balance",
+    },
+    {
+      title: "Argent Bank Checking (x8349)",
+      price: "2,082.79",
+      state: "Available Balance",
+    },
+  ];
 
   return (
-    <div className="main">
+    <div className="main bg-dark">
+      <div class="header">
+        <h1>
+          Welcome back <br></br> {firstName} {lastName}
+        </h1>
+        <button class="edit-button">Edit Name</button>
+      </div>
+
       <h2>Profil</h2>
       <form onSubmit={handleUpdate}>
         <input
           type="text"
-          value={firstName} // état local
-          onChange={(e) => setFirstNameLocal(e.target.value)} // maj état local
+          value={firstName}
+          onChange={(e) => setFirstNameLocal(e.target.value)}
         />
         <input
           type="text"
@@ -93,6 +118,13 @@ const Profil = () => {
           Cancel
         </button>
       </form>
+
+      <section className="">
+        <h2 className="sr-only">yoo</h2>
+        {accountData.map((account, index) => (
+          <AccountCard key={index} {...account} />
+        ))}
+      </section>
     </div>
   );
 };

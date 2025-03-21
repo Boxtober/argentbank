@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { login } from "../../services/apiService";
 import { setToken } from "../../redux/authSlice"; // Action Redux pour mettre à jour le token
 import { useNavigate } from "react-router-dom";
+import Login from "../../components/login/Login";
 const SignIn = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,25 +27,37 @@ const SignIn = () => {
       }
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
+      setError("Erreur lors de la connexion, veuillez réessayer.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
+    <div className="main bg-dark">
+      <Login
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        error={error}
+        setError={setError}
+        handleSubmit={handleSubmit}
       />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Mot de passe"
-      />
-      <button type="submit">Se connecter</button>
-    </form>
+    </div>
+    // <form onSubmit={handleSubmit}>
+    //   <input
+    //     type="email"
+    //     value={email}
+    //     onChange={(e) => setEmail(e.target.value)}
+    //     placeholder="Email"
+    //   />
+    //   <input
+    //     type="password"
+    //     value={password}
+    //     onChange={(e) => setPassword(e.target.value)}
+    //     placeholder="Mot de passe"
+    //   />
+    //   <button type="submit">Se connecter</button>
+    // </form>
   );
 };
 
