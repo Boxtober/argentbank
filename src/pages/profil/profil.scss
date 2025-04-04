@@ -39,3 +39,11 @@ input {
   font-weight: bold;
   cursor: pointer;
 }
+.formBtn:disabled {
+  background-color: rgb(255 0 0 / 28%);
+  color: #ff0000;
+  border: 1px solid red;
+}
+.error {
+  padding: 0.5rem;
+}

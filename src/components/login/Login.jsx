@@ -2,6 +2,7 @@ import React from "react";
 import "./login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import "./login.scss";
 
 const Login = ({
   email,
@@ -19,7 +20,7 @@ const Login = ({
         <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
-            <label htmlFor="email">Username / Email ???</label>
+            <label htmlFor="email">Username</label>
             <input
               type="email"
               id="email"
@@ -45,7 +46,7 @@ const Login = ({
             Sign In
           </button>
         </form>
-      </section>{" "}
+      </section>
     </div>
   );
 };
