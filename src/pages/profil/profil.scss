@@ -47,3 +47,19 @@ input {
 .error {
   padding: 0.5rem;
 }
+.editContent {
+  display: flex;
+  flex-direction: row;
+
+  gap: 1rem;
+}
+
+@media screen and (max-width: 920px) {
+  .editContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+@media (min-width: 920px) {
+}

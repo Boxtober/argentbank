@@ -29,6 +29,12 @@ body {
   flex: 1;
   height: calc(100vh - 140.38px);
 }
+@media screen and (max-width: 1450px) {
+  .main {
+    flex: 1;
+    height: auto;
+  }
+}
 
 .sr-only {
   border: 0 !important;

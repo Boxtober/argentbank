@@ -17,6 +17,11 @@
   text-align: left;
   margin: 0 auto;
 }
+@media screen and (max-width: 480px) {
+  .hero-content {
+    padding: 1rem;
+  }
+}
 
 .hero-content .subtitle {
   font-weight: bold;

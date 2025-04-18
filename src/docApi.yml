@@ -1,0 +1,442 @@
+swagger: "2.0"
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/alltransactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Fetch all transactions for the current month
+      description: Retrieves all transactions for current month
+      parameters:
+        - in: header
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transactions fetched successfully
+          schema:
+            $ref: "#/definitions/AllTransactions"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+  /user/alltransactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Fetch details of a specific transaction
+      description: Retrieves all details a transaction by id.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: ID of the transaction
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction details fetched successfully
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+
+  /user/alltransactions/{id}/category:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update the category of a transaction
+      description: Modifying the category of a transaction.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: ID of the transaction
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: New category for the transaction
+          required: true
+          schema:
+            type: object
+            properties:
+              category:
+                type: string
+                description: New categories
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Category updated successfully
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+  /user/alltransactions/{id}/notes:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Add note to transaction
+      description: Adds note to transaction.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: ID of the transaction
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Note details
+          required: true
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+                description: The note content
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Note added successfully
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+  /user/alltransactions/{id}/notes/{noteId}:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete note from transaction
+      description: Deletes note from transaction.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: ID of the transaction
+          required: true
+          type: string
+        - in: path
+          name: noteId
+          description: ID of the note to delete
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "204":
+          description: Note deleted successfully
+        "401":
+          description: Unauthorized
+        "404":
+          description: Note not found
+        "500":
+          description: Internal Server Error
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Login"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Login Successfully
+          schema:
+            $ref: "#/definitions/LoginResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Signup Successfully
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User profile retrieved successfully
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: "#/definitions/UserProfile"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User profile retrieved successfully
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  AllTransactions:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      transactions:
+        type: array
+        items:
+          $ref: "#/definitions/Transaction"
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Transaction reference number
+      state:
+        type: string
+        enum:
+          - current
+          - available
+        description: Transaction state
+      total:
+        type: number
+        description: Total transaction amount
+      details:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+            description: Transaction date
+          description:
+            type: string
+            description: Transaction description
+          amount:
+            type: number
+            description: Transaction amount
+          balance:
+            type: number
+            description: Account balance after transaction
+  TransactionDetails:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Transaction reference number
+      state:
+        type: string
+        enum:
+          - current
+          - available
+        description: Transaction state
+      total:
+        type: number
+        description: Total transaction amount
+      details:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+            description: Transaction date
+          description:
+            type: string
+            description: Transaction description
+          amount:
+            type: number
+            description: Transaction amount
+          balance:
+            type: number
+            description: Account balance after transactio
+      transaction_type:
+        type: string
+        description: Type of transaction
+      category:
+        type: string
+        description: Transaction categories
+      notes:
+        type: array
+        description: List of notes for the transaction
+        items:
+          type: object
+          properties:
+            noteId:
+              type: string
+              description: Unique identifier for the note
+            content:
+              type: string
+              description: The note content
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string

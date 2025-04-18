@@ -50,7 +50,7 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faUserCircle} />
               {firstName}
             </NavLink>
-            <button className="toto" onClick={handleLogout}>
+            <button className="btn" onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOut} />
               Sign out
             </button>
