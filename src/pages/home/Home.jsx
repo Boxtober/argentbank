@@ -6,7 +6,6 @@ import securityIcon from "../../designs/img/icon-security.png";
 
 import "./home.scss";
 import "../sign/signin.scss";
-// import "../user/user.scss";
 const featuresData = [
   {
     icon: chatIcon,
