@@ -16,6 +16,8 @@ const Navbar = () => {
   console.log("firstName de navbar", firstName);
   useEffect(() => {
     if (token) {
+      // Si token, appel la fonction getProfile(token)
+      // envoie une requête api pour récupérer le profil
       getProfile(token)
         .then((response) => {
           console.log("Profil récupéré :", response.data);
@@ -23,7 +25,7 @@ const Navbar = () => {
         })
         .catch((error) => console.error("Erreur profil :", error));
     }
-  }, [token, dispatch]);
+  }, [token, dispatch]); //se déclenche uniquement si le token change
 
   const handleLogout = () => {
     dispatch(logout());
